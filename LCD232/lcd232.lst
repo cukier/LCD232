@@ -1,9 +1,9 @@
-CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:48
+CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:50
 
                Filename: X:\Eletronica\LCD232\LCD232\lcd232.lst
 
-               ROM used: 71 words (3%)
-                         Largest free fragment is 1977
+               ROM used: 66 words (3%)
+                         Largest free fragment is 1982
                RAM used: 5 (2%) at main() level
                          6 (3%) worst case
                Stack:    1 locations
@@ -13,7 +13,7 @@ CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:48
 0001:  MOVWF  0A
 0002:  GOTO   019
 0003:  NOP
-....................                                  /* 
+.................... /* 
 ....................  * lcd232.c 
 ....................  * 
 ....................  *  Created on: 01/10/2012 
@@ -48,7 +48,7 @@ CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:48
 0015:  GOTO   016
 0016:  DECFSZ 00,F
 0017:  GOTO   00A
-0018:  GOTO   043 (RETURN)
+0018:  GOTO   03E (RETURN)
 ....................  
 .................... #include"lcd_4b.c" 
 .................... #define rs pin_b5 
@@ -133,7 +133,7 @@ CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:48
 ....................  
 ....................  
 ....................  
-.................... int main(void){ 
+.................... int main(void) { 
 0019:  CLRF   04
 001A:  BCF    03.7
 001B:  MOVLW  1F
@@ -145,59 +145,54 @@ CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:48
 0021:  MOVWF  1F
 .................... //   lcd_init(); 
 .................... //   delay_ms(300); 
-....................    while(true){ 
-....................       output_toggle(pin_a0); 
+.................... 	while (true) { 
+.................... 		output_toggle(pin_a0); 
 0022:  BSF    03.5
 0023:  BCF    05.0
 0024:  MOVLW  01
 0025:  BCF    03.5
 0026:  XORWF  05,F
-....................       output_toggle(pin_a1); 
+.................... 		output_toggle(pin_a1); 
 0027:  BSF    03.5
 0028:  BCF    05.1
 0029:  MOVLW  02
 002A:  BCF    03.5
 002B:  XORWF  05,F
-....................       output_toggle(pin_a7); 
+.................... 		output_toggle(pin_a7); 
 002C:  BSF    03.5
 002D:  BCF    05.7
 002E:  MOVLW  80
 002F:  BCF    03.5
 0030:  XORWF  05,F
-....................       output_toggle(pin_a6); 
+.................... //		output_toggle(pin_a6); 
+.................... 		output_toggle(pin_b5); 
 0031:  BSF    03.5
-0032:  BCF    05.6
-0033:  MOVLW  40
+0032:  BCF    06.5
+0033:  MOVLW  20
 0034:  BCF    03.5
-0035:  XORWF  05,F
-....................       output_toggle(pin_b5); 
+0035:  XORWF  06,F
+.................... 		output_toggle(pin_b4); 
 0036:  BSF    03.5
-0037:  BCF    06.5
-0038:  MOVLW  20
+0037:  BCF    06.4
+0038:  MOVLW  10
 0039:  BCF    03.5
 003A:  XORWF  06,F
-....................       output_toggle(pin_b4); 
-003B:  BSF    03.5
-003C:  BCF    06.4
-003D:  MOVLW  10
-003E:  BCF    03.5
-003F:  XORWF  06,F
 .................... //      delay_ms(500); 
 .................... //      printf(lcd, "\f"); 
 .................... //      delay_ms(500); 
 .................... //      printf(lcd, "Hola"); 
-....................       delay_ms(100); 
-0040:  MOVLW  64
-0041:  MOVWF  21
-0042:  GOTO   004
+.................... 		delay_ms(10); 
+003B:  MOVLW  0A
+003C:  MOVWF  21
+003D:  GOTO   004
 .................... //      printf(lcd, "\nMundo"); 
-....................    } 
-0043:  GOTO   022
-....................    return 0; 
-0044:  MOVLW  00
-0045:  MOVWF  78
+.................... 	} 
+003E:  GOTO   022
+.................... 	return 0; 
+003F:  MOVLW  00
+0040:  MOVWF  78
 .................... } 
-0046:  SLEEP
+0041:  SLEEP
 
 Configuration Fuses:
    Word  1: 3F19   NOWDT NOPUT INTRC NOMCLR NOBROWNOUT NOLVP NOCPD NOPROTECT

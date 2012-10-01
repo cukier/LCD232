@@ -1,6 +1,6 @@
 
-ROM used: 71 (3%)
-          71 (3%) including unused fragments
+ROM used: 66 (3%)
+          66 (3%) including unused fragments
 
           0 Average locations per line
           1 Average locations per statement
@@ -12,33 +12,33 @@ Stack used: 1 worst case (out of 8 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   34    10  18  lcd232.c
+   34     9  17  lcd232.c
   224     0   0  C:\PICC\devices\16F628A.h
-   81    45  82  lcd_4b.c
+   81    45  83  lcd_4b.c
 ----- -----
-  339    55 Total
+  339    54 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     21  30   1             @delay_ms1
-0     46  65   0   174  2.2  MAIN
+0     21  32   1             @delay_ms1
+0     41  62   0   152  2.2  MAIN
 
 Program metrics:
     Functions               1
-    Statements              55
-    Comments                95
-    Volume (V)              176
+    Statements              54
+    Comments                96
+    Volume (V)              154
     Difficilty (D)          2.1
-    Effort to implement (E) 375
+    Effort to implement (E) 320
     Time to implement (T)   0 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   1
-    Maintainability (MI)    108
+    Maintainability (MI)    105
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00003     4  0  
-00004-007FF    67  1977  
+00004-007FF    62  1982  
 
 
 

@@ -26,11 +26,11 @@ Project Directory:
     X:\Eletronica\LCD232\LCD232\
 
 Project Files:
-    lcd232.c                                                [01-out-12 18:51  CRC=F6C6D066]
+    lcd232.c                                                [01-out-12 18:53  CRC=C64ADAE8]
     C:\PICC\devices\16F628A.h                               [27-jul-11 18:03  CRC=F34A08C3]
     lcd_4b.c                                                [01-out-12 18:36  CRC=260DA71C]
 
-Source signature=362C2761
+Source signature=05B031E3
 
 Units:
     X:\Eletronica\LCD232\LCD232\lcd232 (main)
