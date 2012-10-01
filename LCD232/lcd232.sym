@@ -1,0 +1,54 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01F.6   C1OUT
+01F.7   C2OUT
+021     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09B-09C @READ_PROGRAM_MEMORY8.P1
+
+ROM Allocation:
+0004  @delay_ms1
+0019  MAIN
+0019  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    X:\Eletronica\LCD232\LCD232\
+
+Project Files:
+    lcd232.c                                                [01-out-12 18:51  CRC=F6C6D066]
+    C:\PICC\devices\16F628A.h                               [27-jul-11 18:03  CRC=F34A08C3]
+    lcd_4b.c                                                [01-out-12 18:36  CRC=260DA71C]
+
+Source signature=362C2761
+
+Units:
+    X:\Eletronica\LCD232\LCD232\lcd232 (main)
+
+Compiler Settings:
+    Processor:      PIC16F628A
+    Pointer Size:   16
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      lcd232.err
+    Ext Symbols: lcd232.esym
+    INHX8:       lcd232.hex
+    Symbols:     lcd232.sym
+    List:        lcd232.lst
+    Debug/COFF:  lcd232.cof
+    Project:     lcd232.PJT
+    Call Tree:   lcd232.tre
+    Statistics:  lcd232.STA
