@@ -1,0 +1,53 @@
+
+ROM used: 549 (27%)
+          549 (27%) including unused fragments
+
+          1 Average locations per line
+          6 Average locations per statement
+
+RAM used: 52 (23%) at main() level
+          62 (28%) worst case
+
+Stack used: 4 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   78    45  50  lcd232.c
+  224     0   0  ..\..\..\..\..\PICC\devices\16F628A.h
+   81    45  50  lcd_4b.c
+----- -----
+  383    90 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     21   4   1             @delay_ms1
+0     39   7   1   260  1.9  lcd_cmd
+0     35   6   3   199  2.7  lcd_envia_byte
+ Inline        3   173  5.0  lcd_pos_xy
+0     54  10   1   290  4.1  lcd
+0     64  12   1   488  3.8  lcd_init
+0      6   1   0    50  1.5  timer_isr
+0     83  15   2   549  5.7  serial_isr
+0    183  33   2   874  5.7  MAIN
+0     11   2   0             @const88
+
+Program metrics:
+    Functions               8
+    Statements              90
+    Comments                90
+    Volume (V)              4333
+    Difficilty (D)          30.3
+    Effort to implement (E) 131409
+    Time to implement (T)   2 hours, 2 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   13
+    Maintainability (MI)    54
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF   496  1499  
+
+
+

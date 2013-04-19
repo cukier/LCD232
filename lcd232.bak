@@ -1,0 +1,83 @@
+/*
+ * lcd232.c
+ *
+ *  Created on: 01/10/2012
+ *      Author: cuki
+ */
+
+#include<16F628A.h>
+#zero_ram
+
+#fuses NOWDT,NOPUT,INTRC_IO,NOMCLR,NOBROWNOUT,NOLVP,NOCPD,NOPROTECT
+#use delay(clock=4MHz)
+#use rs232(baud=9600,xmit=pin_b2,rcv=pin_b1)
+
+#include"lcd_4b.c"
+
+int buffer[2][16];
+int line, col, i, j;
+short write;
+
+#int_timer0
+void timer_isr() {
+	clear_interrupt(int_timer0);
+	disable_interrupts(int_timer0);
+	write = 1;
+}
+
+#int_rda
+void serial_isr() {
+	clear_interrupt(int_rda);
+	buffer[col][line++] = getc();
+	clear_interrupt(int_timer0);
+	enable_interrupts(int_timer0);
+	set_timer0(0);
+	/*	if (buffer[col][line] == 0x0C) {
+	 col = 0;
+	 line = 0;
+	 strcpy(buffer[0], "");
+	 strcpy(buffer[1], "");
+	 }*/
+	if (buffer[col][line - 1] == 0x0A || line == 15)
+		buffer[col][line - 1] = 0, col++, line = 0;
+	else if (buffer[col][line - 1] == 0x0C)
+		buffer[col][line - 1] = 0, col = 0, line = 0;
+}
+
+int main(void) {
+	for (i = 0; i < 16; i++) {
+		buffer[0][i] = 0;
+		buffer[1][i] = 0;
+	}
+	strcpy(buffer[1], "Pronto");
+	lcd_init();
+	delay_ms(15);
+	setup_timer_0(T0_DIV_4);
+	clear_interrupt(int_timer0);
+	enable_interrupts(int_rda);
+//	enable_interrupts(int_timer0);
+	disable_interrupts(int_timer0);
+	enable_interrupts(global);
+	while (true) {
+		if (write) {
+//			delay_ms(300);
+			printf(lcd, "\f%s", buffer[0]);
+			printf(lcd, "\n%s", buffer[1]);
+			for (i = 0; i < 16; i++) {
+				buffer[0][i] = 0;
+				buffer[1][i] = 0;
+				/*write_eeprom(j, buffer[0][i]);
+				 write_eeprom(j + 16, buffer[1][i]);
+				 j++;
+				 if (j == 15)
+				 j = 32;*/
+			}
+			col = 0;
+			line = 0;
+			write = 0;
+		}
+//		printf(lcd, "\n%d", line);
+//		delay_ms(300);
+	}
+	return 0;
+}
