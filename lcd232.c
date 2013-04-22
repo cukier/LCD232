@@ -37,6 +37,7 @@ void serial_isr() {
 	} else
 		line = 0, col = 0;
 	if (buffer[col][line - 1] == '\n') {
+		lcd_pos_xy(1, 2);
 		buffer[col][line - 1] = 0;
 		col++;
 		line = 0;
@@ -44,11 +45,13 @@ void serial_isr() {
 			col = 1;
 	}
 	if (buffer[col][line - 1] == '\f') {
+		lcd_envia_byte(0, 1);
 		buffer[col][line - 1] = 0;
 		col = 0;
 		line = 0;
 	}
 	if (buffer[col][line - 1] == '\r') {
+		lcd_pos_xy(1, 2);
 		buffer[col][line - 1] = 0;
 		line = 0;
 	}

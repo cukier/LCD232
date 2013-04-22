@@ -13,10 +13,16 @@
 int cont;
 
 int main(void) {
-	while (true) {
-		delay_ms(3000);
-		printf("B");
-		getch()
+	delay_ms(1000);
+	printf("\fInicio");
+	while (TRUE) {
+		if (!input(PIN_A0)) {
+			delay_ms(50);
+			if (!input(PIN_A0)) {
+				cont++;
+				printf("%c-%d ", cont, cont);
+			}
+		}
 	}
 	return 0;
 }

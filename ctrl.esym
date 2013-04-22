@@ -1,7 +1,7 @@
 D G "__PCH__" 0 0 ""4.124""
 D G "__DEVICE__" 0 0 ""
-D G "__DATE__" 0 0 ""30-nov-12""
-D G "__TIME__" 0 0 ""15:21:59"" "* ctrl.c"
+D G "__DATE__" 0 0 ""22-abr-13""
+D G "__TIME__" 0 0 ""08:21:53"" "* ctrl.c"
 C G "" 0 1 1 "*"
 C G "" 0 1 1 "*"
 d G "PIN_A0" 1 22 "31744"
@@ -229,8 +229,7 @@ d G "INT_BUSCOL" 1 354 "0x00A008"
 d G "INT_LOWVOLT" 1 355 "0x00A004"
 d G "INT_EEPROM" 1 356 "0x00A010"
 V G "cont" 0 13 "int8"
-F G "main" 0 15 "int8()" "while (true) {"
-C L "main" 0 20 1 "FUNCTION"
+F G "main" 0 15 "int8()"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0

@@ -1,15 +1,15 @@
-CCS PCH C Compiler, Version 4.124, 5967               30-nov-12 15:21
+CCS PCH C Compiler, Version 4.124, 5967               22-abr-13 08:21
 
-               Filename: C:\Users\cuki\Eletronica\Projetos\LCD232\ctrl.lst
+               Filename: E:\Eletronica\Projetos\LCD232\ctrl.lst
 
-               ROM used: 108 bytes (0%)
-                         Largest free fragment is 32660
+               ROM used: 450 bytes (1%)
+                         Largest free fragment is 32318
                RAM used: 6 (0%) at main() level
-                         7 (0%) worst case
-               Stack:    1 locations
+                         14 (1%) worst case
+               Stack:    2 locations
 
 *
-0000:  GOTO   002C
+0000:  GOTO   0150
 .................... /* 
 ....................  * ctrl.c 
 ....................  * 
@@ -24,70 +24,101 @@ CCS PCH C Compiler, Version 4.124, 5967               30-nov-12 15:21
 ....................  
 .................... #fuses HS,NOOSCSEN,NOPUT,NOBROWNOUT,NOWDT,NOSTVREN,NOLVP,NODEBUG,NOPROTECT,NOCPB,NOCPD,NOWRT,NOWRTC,NOWRTB,NOWRTD,NOEBTR,NOEBTRB 
 .................... #use delay(clock=8MHz) 
-0004:  CLRF   FEA
-0006:  MOVLW  06
-0008:  MOVWF  FE9
-000A:  MOVF   FEF,W
-000C:  BZ    0028
-000E:  MOVLW  02
-0010:  MOVWF  01
-0012:  CLRF   00
-0014:  DECFSZ 00,F
-0016:  BRA    0014
-0018:  DECFSZ 01,F
-001A:  BRA    0012
-001C:  MOVLW  97
-001E:  MOVWF  00
-0020:  DECFSZ 00,F
-0022:  BRA    0020
-0024:  DECFSZ FEF,F
-0026:  BRA    000E
-0028:  GOTO   0052 (RETURN)
+*
+000C:  CLRF   FEA
+000E:  MOVLW  06
+0010:  MOVWF  FE9
+0012:  MOVF   FEF,W
+0014:  BZ    0030
+0016:  MOVLW  02
+0018:  MOVWF  01
+001A:  CLRF   00
+001C:  DECFSZ 00,F
+001E:  BRA    001C
+0020:  DECFSZ 01,F
+0022:  BRA    001A
+0024:  MOVLW  97
+0026:  MOVWF  00
+0028:  DECFSZ 00,F
+002A:  BRA    0028
+002C:  DECFSZ FEF,F
+002E:  BRA    0016
+0030:  RETURN 0
 .................... #use rs232(baud=9600,xmit=pin_c6,rcv=pin_c7) 
 ....................  
 .................... int cont; 
 ....................  
 .................... int main(void) { 
-002C:  CLRF   FF8
-002E:  BCF    FD0.7
-0030:  CLRF   FEA
-0032:  CLRF   FE9
-0034:  MOVLW  0C
-0036:  MOVWF  FAF
-0038:  MOVLW  A2
-003A:  MOVWF  FAC
-003C:  MOVLW  90
-003E:  MOVWF  FAB
-0040:  BSF    FC1.0
-0042:  BSF    FC1.1
-0044:  BSF    FC1.2
-0046:  BCF    FC1.3
-.................... //	while (true) { 
-.................... 		delay_ms(3000); 
-0048:  MOVLW  0C
-004A:  MOVWF  05
-004C:  MOVLW  FA
-004E:  MOVWF  06
-0050:  BRA    0004
-0052:  DECFSZ 05,F
-0054:  BRA    004C
-.................... 		printf("B"); 
-0056:  MOVLW  42
-0058:  BTFSS  F9E.4
-005A:  BRA    0058
-005C:  MOVWF  FAD
-.................... 		printf("B"); 
-005E:  MOVLW  42
-0060:  BTFSS  F9E.4
-0062:  BRA    0060
-0064:  MOVWF  FAD
-.................... //		printf("B"); 
-.................... //	} 
+*
+0150:  CLRF   FF8
+0152:  BCF    FD0.7
+0154:  CLRF   FEA
+0156:  CLRF   FE9
+0158:  MOVLW  0C
+015A:  MOVWF  FAF
+015C:  MOVLW  A2
+015E:  MOVWF  FAC
+0160:  MOVLW  90
+0162:  MOVWF  FAB
+0164:  BSF    FC1.0
+0166:  BSF    FC1.1
+0168:  BSF    FC1.2
+016A:  BCF    FC1.3
+.................... 	delay_ms(1000); 
+016C:  MOVLW  04
+016E:  MOVWF  05
+0170:  MOVLW  FA
+0172:  MOVWF  06
+0174:  RCALL  000C
+0176:  DECFSZ 05,F
+0178:  BRA    0170
+.................... 	printf("\fInicio"); 
+017A:  MOVLW  04
+017C:  MOVWF  FF6
+017E:  MOVLW  00
+0180:  MOVWF  FF7
+0182:  BRA    0032
+.................... 	while (TRUE) { 
+.................... 		if (!input(PIN_A0)) { 
+0184:  BSF    F92.0
+0186:  BTFSC  F80.0
+0188:  BRA    01BA
+.................... 			delay_ms(50); 
+018A:  MOVLW  32
+018C:  MOVWF  06
+018E:  RCALL  000C
+.................... 			if (!input(PIN_A0)) { 
+0190:  BSF    F92.0
+0192:  BTFSC  F80.0
+0194:  BRA    01BA
+.................... 				cont++; 
+0196:  INCF   04,F
+.................... 				printf("%c-%d ", cont, cont); 
+0198:  MOVF   04,W
+019A:  BTFSS  F9E.4
+019C:  BRA    019A
+019E:  MOVWF  FAD
+01A0:  MOVLW  2D
+01A2:  BTFSS  F9E.4
+01A4:  BRA    01A2
+01A6:  MOVWF  FAD
+01A8:  MOVFF  04,05
+01AC:  MOVLW  1F
+01AE:  MOVWF  06
+01B0:  BRA    007E
+01B2:  MOVLW  20
+01B4:  BTFSS  F9E.4
+01B6:  BRA    01B4
+01B8:  MOVWF  FAD
+.................... 			} 
+.................... 		} 
+.................... 	} 
+01BA:  BRA    0184
 .................... 	return 0; 
-0066:  MOVLW  00
-0068:  MOVWF  01
+01BC:  MOVLW  00
+01BE:  MOVWF  01
 .................... } 
-006A:  SLEEP 
+01C0:  SLEEP 
 
 Configuration Fuses:
    Word  1: 2200   HS NOOSCSEN
