@@ -37,7 +37,6 @@ void serial_isr() {
 	} else
 		line = 0, col = 0;
 	if (buffer[col][line - 1] == '\n') {
-		lcd_pos_xy(1, 2);
 		buffer[col][line - 1] = 0;
 		col++;
 		line = 0;
@@ -45,13 +44,11 @@ void serial_isr() {
 			col = 1;
 	}
 	if (buffer[col][line - 1] == '\f') {
-		lcd_envia_byte(0, 1);
 		buffer[col][line - 1] = 0;
 		col = 0;
 		line = 0;
 	}
 	if (buffer[col][line - 1] == '\r') {
-		lcd_pos_xy(1, 2);
 		buffer[col][line - 1] = 0;
 		line = 0;
 	}
@@ -72,8 +69,8 @@ int main(void) {
 	enable_interrupts(GLOBAL);
 	while (TRUE) {
 		if (write) {
-			printf(lcd, "%s", buffer[0]);
-			printf(lcd, "%s", buffer[1]);
+			printf(lcd, "\f%s", buffer[0]);
+			printf(lcd, "\n%s", buffer[1]);
 			for (i = 0; i < 16; i++) {
 				buffer[0][i] = 0;
 				buffer[1][i] = 0;
