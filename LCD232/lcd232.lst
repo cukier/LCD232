@@ -1,0 +1,198 @@
+CCS PCM C Compiler, Version 4.124, 5967               01-out-12 18:50
+
+               Filename: X:\Eletronica\LCD232\LCD232\lcd232.lst
+
+               ROM used: 66 words (3%)
+                         Largest free fragment is 1982
+               RAM used: 5 (2%) at main() level
+                         6 (3%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... /* 
+....................  * lcd232.c 
+....................  * 
+....................  *  Created on: 01/10/2012 
+....................  *      Author: cuki 
+....................  */ 
+....................  
+.................... #include<16F628A.h> 
+.................... //////// Standard Header file for the PIC16F628A device //////////////// 
+.................... #device PIC16F628A 
+.................... #list 
+....................  
+....................  
+.................... #fuses NOWDT,NOPUT,INTRC,NOMCLR,NOBROWNOUT,NOLVP,NOCPD,NOPROTECT 
+.................... #use delay(clock=4MHz) 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  GOTO   03E (RETURN)
+....................  
+.................... #include"lcd_4b.c" 
+.................... #define rs pin_b5 
+.................... #define en pin_b4 
+.................... #define d4 pin_a6 
+.................... #define d5 pin_a7 
+.................... #define d6 pin_a0 
+.................... #define d7 pin_a1 
+....................  
+.................... void lcd_cmd(int cmd) { 
+.................... 	output_bit(d4, bit_test(cmd, 0)); 
+.................... 	output_bit(d5, bit_test(cmd, 1)); 
+.................... 	output_bit(d6, bit_test(cmd, 2)); 
+.................... 	output_bit(d7, bit_test(cmd, 3)); 
+.................... 	output_high(en); 
+.................... 	output_low(en); 
+.................... } 
+....................  
+.................... void lcd_envia_byte(short endereco, int dado) { 
+.................... 	output_low(rs); 
+.................... 	output_bit(rs, endereco); 
+.................... 	delay_us(100); 
+.................... 	output_low(en); 
+.................... 	lcd_cmd(dado >> 4); 
+.................... 	lcd_cmd(dado & 0x0f); 
+.................... 	delay_ms(1); 
+.................... } 
+....................  
+.................... void lcd_pos_xy(byte x, byte y) { 
+.................... 	byte endereco; 
+.................... 	if (y != 1) 
+.................... 		endereco = 0xc0; 
+.................... 	else 
+.................... 		endereco = 0x80; 
+.................... 	endereco += x - 1; 
+.................... 	lcd_envia_byte(0, endereco); 
+.................... } 
+....................  
+.................... void lcd(char c) { 
+.................... 	switch (c) { 
+.................... 	case '\f': 
+.................... 		lcd_envia_byte(0, 1);     // 0,1 
+.................... 		delay_ms(2); 
+.................... 		break; 
+.................... 	case '\n': 
+.................... 	case '\r': 
+.................... 		lcd_pos_xy(1, 2);      // 1,2  COLUNA,LINHA 
+.................... 		break; 
+.................... 	case '\b': 
+.................... 		lcd_envia_byte(0, 0x10); 
+.................... 		break; 
+.................... 	default: 
+.................... 		lcd_envia_byte(1, c); 
+.................... 		break; 
+.................... 	} 
+.................... } 
+....................  
+.................... void lcd_init() { 
+....................  
+.................... 	int conta; 
+....................  
+.................... 	output_low(rs); 
+.................... 	output_low(en); 
+.................... 	output_low(d4); 
+.................... 	output_low(d5); 
+.................... 	output_low(d6); 
+.................... 	output_low(d7); 
+....................  
+.................... 	delay_ms(15); 
+....................  
+.................... 	for (conta = 1; conta <= 3; conta++) { 
+.................... 		lcd_cmd(0x03); 
+.................... 		delay_ms(5); 
+.................... 	} 
+.................... 	lcd_cmd(0x02);           //escreve comando para interface de 4 vias de dados 
+.................... 	lcd_envia_byte(0, 0x28); //escreve comando informando lcd de 2 linhas (5x7) em 4bits 
+.................... 	lcd_envia_byte(0, 0x0c); //escreve comando para limpar todo o display 
+.................... 	lcd_envia_byte(0, 0x01); //escreve comando para ligar o display **com cursor piscante 
+.................... 	lcd_envia_byte(0, 0x06); //escreve comando para incrementar automaticamente á direita 
+.................... 	delay_ms(5); 
+.................... } 
+....................  
+....................  
+....................  
+.................... int main(void) { 
+0019:  CLRF   04
+001A:  BCF    03.7
+001B:  MOVLW  1F
+001C:  ANDWF  03,F
+001D:  BSF    03.5
+001E:  BSF    0E.3
+001F:  MOVLW  07
+0020:  BCF    03.5
+0021:  MOVWF  1F
+.................... //   lcd_init(); 
+.................... //   delay_ms(300); 
+.................... 	while (true) { 
+.................... 		output_toggle(pin_a0); 
+0022:  BSF    03.5
+0023:  BCF    05.0
+0024:  MOVLW  01
+0025:  BCF    03.5
+0026:  XORWF  05,F
+.................... 		output_toggle(pin_a1); 
+0027:  BSF    03.5
+0028:  BCF    05.1
+0029:  MOVLW  02
+002A:  BCF    03.5
+002B:  XORWF  05,F
+.................... 		output_toggle(pin_a7); 
+002C:  BSF    03.5
+002D:  BCF    05.7
+002E:  MOVLW  80
+002F:  BCF    03.5
+0030:  XORWF  05,F
+.................... //		output_toggle(pin_a6); 
+.................... 		output_toggle(pin_b5); 
+0031:  BSF    03.5
+0032:  BCF    06.5
+0033:  MOVLW  20
+0034:  BCF    03.5
+0035:  XORWF  06,F
+.................... 		output_toggle(pin_b4); 
+0036:  BSF    03.5
+0037:  BCF    06.4
+0038:  MOVLW  10
+0039:  BCF    03.5
+003A:  XORWF  06,F
+.................... //      delay_ms(500); 
+.................... //      printf(lcd, "\f"); 
+.................... //      delay_ms(500); 
+.................... //      printf(lcd, "Hola"); 
+.................... 		delay_ms(10); 
+003B:  MOVLW  0A
+003C:  MOVWF  21
+003D:  GOTO   004
+.................... //      printf(lcd, "\nMundo"); 
+.................... 	} 
+003E:  GOTO   022
+.................... 	return 0; 
+003F:  MOVLW  00
+0040:  MOVWF  78
+.................... } 
+0041:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F19   NOWDT NOPUT INTRC NOMCLR NOBROWNOUT NOLVP NOCPD NOPROTECT
