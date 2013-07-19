@@ -14,68 +14,47 @@
 
 #include"lcd_4b.c"
 
-int buffer[2][16];
+int buffer[34];
 int col, i, j;
 short write = 1;
 int line = 0;
 
-#int_timer0
-void timer_isr() {
-	clear_interrupt(INT_TIMER0);
-	disable_interrupts(INT_TIMER0);
+#INT_TIMER1
+void isr_timer1() {
+	clear_interrupt(INT_TIMER1);
+	setup_timer_1(T1_DISABLED);
 	write = 1;
 }
 
 #int_rda
 void serial_isr() {
 	clear_interrupt(INT_RDA);
-	if (line < 16 && col < 2) {
-		buffer[col][line++] = getc();
-		clear_interrupt(INT_TIMER0);
-		enable_interrupts(INT_TIMER0);
-		set_timer0(0);
-	} else
-		line = 0, col = 0;
-	if (buffer[col][line - 1] == '\n') {
-		buffer[col][line - 1] = 0;
-		col++;
-		line = 0;
-		if (col > 1)
-			col = 1;
-	}
-	if (buffer[col][line - 1] == '\f') {
-		buffer[col][line - 1] = 0;
-		col = 0;
+	if (line < 31) {
+		buffer[line++] = getc();
+		buffer[line] = '\0';
+	} else {
+		strcpy(buffer, "");
 		line = 0;
 	}
-	if (buffer[col][line - 1] == '\r') {
-		buffer[col][line - 1] = 0;
-		line = 0;
-	}
+	set_timer1(0);
+	setup_timer_1(T1_INTERNAL | T1_DIV_BY_1);
 }
 
 int main(void) {
-	for (i = 0; i < 16; i++) {
-		buffer[0][i] = 0;
-		buffer[1][i] = 0;
-	}
-	strcpy(buffer[1], "Done");
+
+	strcpy(buffer, "Done");
 	lcd_init();
 	delay_ms(15);
-	setup_timer_0(T0_DIV_4);
-	clear_interrupt(INT_TIMER0);
+
+	clear_interrupt(INT_TIMER1);
 	enable_interrupts(INT_RDA);
-	disable_interrupts(INT_TIMER0);
+	enable_interrupts(INT_TIMER1);
 	enable_interrupts(GLOBAL);
+
 	while (TRUE) {
 		if (write) {
-			printf(lcd, "\f%s", buffer[0]);
-			printf(lcd, "\n%s", buffer[1]);
-			for (i = 0; i < 16; i++) {
-				buffer[0][i] = 0;
-				buffer[1][i] = 0;
-			}
-			col = 0;
+			printf(lcd, "\f%s", buffer);
+			buffer[0] = '\0';
 			line = 0;
 			write = 0;
 		}

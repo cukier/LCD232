@@ -10,7 +10,7 @@
 #use delay(clock=8MHz)
 #use rs232(baud=9600,xmit=pin_c6,rcv=pin_c7)
 
-int cont;
+float cont;
 
 int main(void) {
 	delay_ms(1000);
@@ -20,8 +20,11 @@ int main(void) {
 		if (!input(PIN_A0)) {
 			delay_ms(50);
 			if (!input(PIN_A0)) {
-				cont++;
-				printf("%c-%d ", cont, cont);
+				cont = cont + 0.83;
+				printf("\fU%dA%dR%dB%d", 1, 1, 0, 1);
+				printf("\n%5lu.%2lu %f", (long long) cont,
+						(long long) ((float) (cont - (long long) cont) * 100),
+						60.87);
 			}
 		}
 	}
