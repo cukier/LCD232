@@ -42,7 +42,8 @@ void serial_isr() {
 
 int main(void) {
 
-	strcpy(buffer, "Done");
+	output_low(PIN_B3);
+	strcpy(buffer, "Done2");
 	lcd_init();
 	delay_ms(15);
 
