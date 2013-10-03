@@ -14,70 +14,51 @@
 
 #include"lcd_4b.c"
 
-int buffer[2][16];
-int line, col, i, j;
-short write;
+int buffer[34];
+int col, i, j;
+short write = 1;
+int line = 0;
 
-#int_timer0
-void timer_isr() {
-	clear_interrupt(int_timer0);
-	disable_interrupts(int_timer0);
+#INT_TIMER1
+void isr_timer1() {
+	clear_interrupt(INT_TIMER1);
+	setup_timer_1(T1_DISABLED);
 	write = 1;
 }
 
 #int_rda
 void serial_isr() {
-	clear_interrupt(int_rda);
-	buffer[col][line++] = getc();
-	clear_interrupt(int_timer0);
-	enable_interrupts(int_timer0);
-	set_timer0(0);
-	/*	if (buffer[col][line] == 0x0C) {
-	 col = 0;
-	 line = 0;
-	 strcpy(buffer[0], "");
-	 strcpy(buffer[1], "");
-	 }*/
-	if (buffer[col][line - 1] == 0x0A || line == 15)
-		buffer[col][line - 1] = 0, col++, line = 0;
-	else if (buffer[col][line - 1] == 0x0C)
-		buffer[col][line - 1] = 0, col = 0, line = 0;
+	clear_interrupt(INT_RDA);
+	if (line < 31) {
+		buffer[line++] = getc();
+		buffer[line] = '\0';
+	} else {
+		strcpy(buffer, "");
+		line = 0;
+	}
+	set_timer1(0);
+	setup_timer_1(T1_INTERNAL | T1_DIV_BY_1);
 }
 
 int main(void) {
-	for (i = 0; i < 16; i++) {
-		buffer[0][i] = 0;
-		buffer[1][i] = 0;
-	}
-	strcpy(buffer[1], "Pronto");
+
+	output_low(PIN_B3);
+	strcpy(buffer, "Done2");
 	lcd_init();
 	delay_ms(15);
-	setup_timer_0(T0_DIV_4);
-	clear_interrupt(int_timer0);
-	enable_interrupts(int_rda);
-//	enable_interrupts(int_timer0);
-	disable_interrupts(int_timer0);
-	enable_interrupts(global);
-	while (true) {
+
+	clear_interrupt(INT_TIMER1);
+	enable_interrupts(INT_RDA);
+	enable_interrupts(INT_TIMER1);
+	enable_interrupts(GLOBAL);
+
+	while (TRUE) {
 		if (write) {
-//			delay_ms(300);
-			printf(lcd, "\f%s", buffer[0]);
-			printf(lcd, "\n%s", buffer[1]);
-			for (i = 0; i < 16; i++) {
-				buffer[0][i] = 0;
-				buffer[1][i] = 0;
-				/*write_eeprom(j, buffer[0][i]);
-				 write_eeprom(j + 16, buffer[1][i]);
-				 j++;
-				 if (j == 15)
-				 j = 32;*/
-			}
-			col = 0;
+			printf(lcd, "\f%s", buffer);
+			buffer[0] = '\0';
 			line = 0;
 			write = 0;
 		}
-//		printf(lcd, "\n%d", line);
-//		delay_ms(300);
 	}
 	return 0;
 }

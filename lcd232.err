@@ -1,3 +1,6 @@
-No Errors   D:\Eletronica\Projetos\LCD232\lcd232.PJT
-      0 Errors,  0 Warnings.
+>>> Warning 202 "lcd232.c" Line 18(5,8): Variable never used:   col
+>>> Warning 202 "lcd232.c" Line 18(10,11): Variable never used:   i
+>>> Warning 202 "lcd232.c" Line 18(13,14): Variable never used:   j
+      Memory usage:   ROM=22%      RAM=24% - 29%
+      0 Errors,  3 Warnings.
 Build Successful.

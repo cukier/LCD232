@@ -48,6 +48,6 @@ Count=1
 [Opened Files]
 1=lcd232.c
 2=lcd232.lst
-3=..\..\..\..\..\PICC\devices\16F628A.h
-4=lcd_4b.c
+3=lcd_4b.c
+4=
 5=

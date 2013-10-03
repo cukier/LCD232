@@ -1,4 +1,4 @@
-CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
+CCS PCM C Compiler, Version 4.140, 31805               03-out-13 14:36
 
                Filename:   D:\Eletronica\Projetos\LCD232\lcd232.lst
 
@@ -391,12 +391,12 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 ....................  
 .................... #INT_TIMER1 
 .................... void isr_timer1() { 
-.................... 	clear_interrupt(INT_TIMER1); 
+....................    clear_interrupt(INT_TIMER1); 
 *
 0046:  BCF    0C.0
-.................... 	setup_timer_1(T1_DISABLED); 
+....................    setup_timer_1(T1_DISABLED); 
 0047:  CLRF   10
-.................... 	write = 1; 
+....................    write = 1; 
 0048:  BSF    4D.0
 .................... } 
 ....................  
@@ -405,14 +405,14 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 004B:  GOTO   026
 .................... #int_rda 
 .................... void serial_isr() { 
-.................... 	clear_interrupt(INT_RDA); 
+....................    clear_interrupt(INT_RDA); 
 004C:  BCF    0C.5
-.................... 	if (line < 31) { 
+....................    if (line < 31) { 
 004D:  MOVF   4E,W
 004E:  SUBLW  1E
 004F:  BTFSS  03.0
 0050:  GOTO   060
-.................... 		buffer[line++] = getc(); 
+....................       buffer[line++] = getc(); 
 0051:  MOVF   4E,W
 0052:  INCF   4E,F
 0053:  ADDLW  28
@@ -422,15 +422,15 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 0057:  GOTO   056
 0058:  MOVF   1A,W
 0059:  MOVWF  00
-.................... 		buffer[line] = '\0'; 
+....................       buffer[line] = '\0'; 
 005A:  MOVLW  28
 005B:  ADDWF  4E,W
 005C:  MOVWF  04
 005D:  BCF    03.7
 005E:  CLRF   00
-.................... 	} else { 
+....................    } else { 
 005F:  GOTO   071
-.................... 		strcpy(buffer, ""); 
+....................       strcpy(buffer, ""); 
 0060:  CLRF   59
 0061:  CLRF   5A
 0062:  MOVLW  28
@@ -447,13 +447,13 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 006D:  INCF   5A,F
 006E:  INCF   59,F
 006F:  GOTO   062
-.................... 		line = 0; 
+....................       line = 0; 
 0070:  CLRF   4E
-.................... 	} 
-.................... 	set_timer1(0); 
+....................    } 
+....................    set_timer1(0); 
 0071:  CLRF   0F
 0072:  CLRF   0E
-.................... 	setup_timer_1(T1_INTERNAL | T1_DIV_BY_1); 
+....................    setup_timer_1(T1_INTERNAL | T1_DIV_BY_1); 
 0073:  MOVLW  85
 0074:  MOVWF  10
 .................... } 
@@ -520,12 +520,12 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 0184:  MOVLW  07
 0185:  MOVWF  1F
 ....................  
-.................... 	output_low(PIN_B3); 
+....................    output_low(PIN_B3); 
 0186:  BSF    03.5
 0187:  BCF    06.3
 0188:  BCF    03.5
 0189:  BCF    06.3
-.................... 	strcpy(buffer, "Done2"); 
+....................    strcpy(buffer, "Done2"); 
 018A:  CLRF   4F
 018B:  CLRF   50
 018C:  MOVLW  28
@@ -542,30 +542,30 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 0197:  INCF   50,F
 0198:  INCF   4F,F
 0199:  GOTO   18C
-.................... 	lcd_init(); 
+....................    lcd_init(); 
 019A:  GOTO   0D9
-.................... 	delay_ms(15); 
-019B:  MOVLW  0F
+....................    delay_ms(150); 
+019B:  MOVLW  96
 019C:  MOVWF  57
 019D:  CALL   078
 ....................  
-.................... 	clear_interrupt(INT_TIMER1); 
+....................    clear_interrupt(INT_TIMER1); 
 019E:  BCF    0C.0
-.................... 	enable_interrupts(INT_RDA); 
+....................    enable_interrupts(INT_RDA); 
 019F:  BSF    03.5
 01A0:  BSF    0C.5
-.................... 	enable_interrupts(INT_TIMER1); 
+....................    enable_interrupts(INT_TIMER1); 
 01A1:  BSF    0C.0
-.................... 	enable_interrupts(GLOBAL); 
+....................    enable_interrupts(GLOBAL); 
 01A2:  MOVLW  C0
 01A3:  BCF    03.5
 01A4:  IORWF  0B,F
 ....................  
-.................... 	while (TRUE) { 
-.................... 		if (write) { 
+....................    while (TRUE) { 
+....................       if (write) { 
 01A5:  BTFSS  4D.0
 01A6:  GOTO   1C4
-.................... 			printf(lcd, "\f%s", buffer); 
+....................          printf(lcd, "\f%s", buffer); 
 01A7:  MOVLW  0C
 01A8:  MOVWF  51
 01A9:  CALL   119
@@ -592,16 +592,16 @@ CCS PCM C Compiler, Version 4.140, 21898               03-set-13 11:46
 01BE:  BSF    03.7
 01BF:  INCF   04,F
 01C0:  GOTO   1AD
-.................... 			buffer[0] = '\0'; 
+....................          buffer[0] = '\0'; 
 01C1:  CLRF   28
-.................... 			line = 0; 
+....................          line = 0; 
 01C2:  CLRF   4E
-.................... 			write = 0; 
+....................          write = 0; 
 01C3:  BCF    4D.0
-.................... 		} 
-.................... 	} 
+....................       } 
+....................    } 
 01C4:  GOTO   1A5
-.................... 	return 0; 
+....................    return 0; 
 01C5:  MOVLW  00
 01C6:  MOVWF  78
 .................... } 
