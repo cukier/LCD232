@@ -15,7 +15,6 @@
 #include"lcd_4b.c"
 
 int buffer[34];
-int col, i, j;
 short write = 1;
 int line = 0;
 
@@ -42,10 +41,10 @@ void serial_isr() {
 
 int main(void) {
 
-	output_low(PIN_B3);
 	strcpy(buffer, "Done");
+	write = TRUE;
 	lcd_init();
-	delay_ms(150);
+	delay_ms(300);
 
 	clear_interrupt(INT_TIMER1);
 	enable_interrupts(INT_RDA);
@@ -56,8 +55,9 @@ int main(void) {
 		if (write) {
 			write = 0;
 			printf(lcd, "%s", buffer);
-			strcpy(buffer, "");
-			buffer[0] = '\0';
+			for (line = 0; line < 32; line++) {
+				buffer[line] = '\0';
+			}
 			line = 0;
 		}
 	}
