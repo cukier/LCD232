@@ -1,9 +1,9 @@
-#define rs pin_b4
-#define en pin_b5
-#define d4 pin_a6
-#define d5 pin_a7
-#define d6 pin_a0
-#define d7 pin_a1
+#define rs PIN_B4
+#define en PIN_B5
+#define d4 PIN_A6
+#define d5 PIN_A7
+#define d6 PIN_A0
+#define d7 PIN_A1
 
 void lcd_cmd(int cmd) {
 	output_bit(d4, bit_test(cmd, 0));
@@ -24,8 +24,8 @@ void lcd_envia_byte(short endereco, int dado) {
 	delay_ms(1);
 }
 
-void lcd_pos_xy(byte x, byte y) {
-	byte endereco;
+void lcd_pos_xy(int x, int y) {
+	int endereco;
 	if (y != 1)
 		endereco = 0xc0;
 	else
