@@ -12,17 +12,17 @@
 #use delay(clock=4MHz)
 #use rs232(baud=9600,xmit=pin_b2,rcv=pin_b1)
 
-#include "lcd_4b.c"
-
 int buffer[34];
-short write = 1;
 int line = 0;
 
 #INT_TIMER1
 void isr_timer1() {
 	clear_interrupt(INT_TIMER1);
 	setup_timer_1(T1_DISABLED);
-	write = 1;
+	for (line = 0; line < 32; line++) {
+		buffer[line] = '\0';
+	}
+	line = 0;
 }
 
 #int_rda
@@ -36,26 +36,13 @@ void serial_isr() {
 
 int main(void) {
 
-	strcpy(buffer, "Done");
-	write = TRUE;
-	lcd_init();
-	delay_ms(500);
-
 	clear_interrupt(INT_TIMER1);
 	enable_interrupts(INT_RDA);
 	enable_interrupts(INT_TIMER1);
 	enable_interrupts(GLOBAL);
 
 	while (TRUE) {
-		if (write) {
-			write = 0;
-			printf(lcd, "%s", buffer);
-			for (line = 0; line < 32; line++) {
-				buffer[line] = '\0';
-			}
-			line = 0;
-//			sleep();
-		}
+		;
 	}
 	return 0;
 }

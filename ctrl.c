@@ -20,8 +20,7 @@ int main(void) {
 		if (!input(PIN_A0)) {
 			delay_ms(50);
 			if (!input(PIN_A0)) {
-				cont++;
-				printf("%c-%d ", cont, cont);
+				printf("\f12345678901234567890123456789012345");
 			}
 		}
 	}

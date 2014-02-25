@@ -1,5 +1,5 @@
-#define rs PIN_B4
-#define en PIN_B5
+#define rs PIN_A2
+#define en PIN_A3
 #define d4 PIN_A6
 #define d5 PIN_A7
 #define d6 PIN_A0
