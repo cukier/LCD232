@@ -54,7 +54,7 @@ int main(void) {
 				buffer[line] = '\0';
 			}
 			line = 0;
-//			sleep();
+			sleep();
 		}
 	}
 	return 0;
