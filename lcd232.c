@@ -14,7 +14,7 @@
 
 #include "lcd_4b.c"
 
-int buffer[34];
+int buffer[80];
 short write = 1;
 int line = 0;
 
