@@ -1,4 +1,4 @@
-CCS PCM C Compiler, Version 4.140, 22098               12-set-14 11:10
+CCS PCM C Compiler, Version 4.140, 22098               07-out-14 17:04
 
                Filename:   D:\Projetos\LCD232\lcd232.lst
 
@@ -440,8 +440,9 @@ CCS PCM C Compiler, Version 4.140, 22098               12-set-14 11:10
 ....................  
 ....................  
 ....................  
-.................... int buffer[80]; 
+....................  
 .................... short write = 1; 
+.................... int buffer[80]; 
 .................... int line = 0; 
 ....................  
 .................... #INT_TIMER1 
@@ -601,7 +602,7 @@ CCS PCM C Compiler, Version 4.140, 22098               12-set-14 11:10
 .................... 	while (TRUE) { 
 .................... 		if (write) { 
 01CA:  BTFSS  28.0
-01CB:  GOTO   1F6
+01CB:  GOTO   1F5
 .................... 			write = 0; 
 01CC:  BCF    28.0
 .................... 			printf(lcd, "%s", buffer); 
@@ -649,11 +650,11 @@ CCS PCM C Compiler, Version 4.140, 22098               12-set-14 11:10
 01F3:  GOTO   1E9
 .................... 			line = 0; 
 01F4:  CLRF   29
-.................... 			sleep(); 
-01F5:  SLEEP
 .................... 		} 
 .................... 	} 
-01F6:  GOTO   1CA
+01F5:  GOTO   1CA
+.................... 	sleep(); 
+01F6:  SLEEP
 .................... 	return 0; 
 01F7:  MOVLW  00
 01F8:  MOVWF  78

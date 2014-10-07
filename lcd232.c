@@ -14,8 +14,9 @@
 
 #include "lcd_4b.c"
 
-int buffer[80];
+
 short write = 1;
+int buffer[80];
 int line = 0;
 
 #INT_TIMER1
@@ -54,8 +55,8 @@ int main(void) {
 				buffer[line] = '\0';
 			}
 			line = 0;
-			sleep();
 		}
 	}
+	sleep();
 	return 0;
 }
