@@ -14,7 +14,6 @@
 
 #include "lcd_4b.c"
 
-
 short write = 1;
 int buffer[80];
 int line = 0;
@@ -57,6 +56,5 @@ int main(void) {
 			line = 0;
 		}
 	}
-	sleep();
 	return 0;
 }

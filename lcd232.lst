@@ -1,9 +1,9 @@
-CCS PCM C Compiler, Version 4.140, 22098               07-out-14 17:04
+CCS PCM C Compiler, Version 4.140, 22098               08-out-14 09:27
 
                Filename:   D:\Projetos\LCD232\lcd232.lst
 
-               ROM used:   506 words (25%)
-                           Largest free fragment is 1542
+               ROM used:   505 words (25%)
+                           Largest free fragment is 1543
                RAM used:   97 (43%) at main() level
                            107 (48%) worst case
                Stack:     4 worst case (3 in main + 1 for interrupts)
@@ -440,7 +440,6 @@ CCS PCM C Compiler, Version 4.140, 22098               07-out-14 17:04
 ....................  
 ....................  
 ....................  
-....................  
 .................... short write = 1; 
 .................... int buffer[80]; 
 .................... int line = 0; 
@@ -653,13 +652,11 @@ CCS PCM C Compiler, Version 4.140, 22098               07-out-14 17:04
 .................... 		} 
 .................... 	} 
 01F5:  GOTO   1CA
-.................... 	sleep(); 
-01F6:  SLEEP
 .................... 	return 0; 
-01F7:  MOVLW  00
-01F8:  MOVWF  78
+01F6:  MOVLW  00
+01F7:  MOVWF  78
 .................... } 
-01F9:  SLEEP
+01F8:  SLEEP
 
 Configuration Fuses:
    Word  1: 3F38   NOWDT NOPUT INTRC_IO MCLR NOBROWNOUT NOLVP NOCPD NOPROTECT
