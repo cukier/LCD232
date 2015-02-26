@@ -1,7 +1,7 @@
 D G "__PCM__" 0 0 ""5.008""
 D G "__DEVICE__" 0 0 ""
 D G "__DATE__" 0 0 ""26-fev-15""
-D G "__TIME__" 0 0 ""08:49:05"" "* lcd232.c"
+D G "__TIME__" 0 0 ""17:22:22"" "* lcd232.c"
 c L "set_tris_a" 0 1 1 "*"
 c L "set_tris_a" 0 1 1 "*"
 c L "set_tris_a" 1 1 14 "FUNCTION"
@@ -654,14 +654,7 @@ C L "lcd_init" 2 40 1 "FUNCTION"
 C L "lcd_init" 2 40 1 "FUNCTION"
 C L "lcd_init" 2 40 1 "FUNCTION"
 C L "lcd_init" 2 40 1 "FUNCTION"
-D G "max" 0 17 "40"
-D G "T1_ON" 0 18 "T1_INTERNAL|T1_DIV_BY_1"
-V G "write" 0 20 "int1" `563 
-V G "buffer" 0 21 "int8[40]" `564 
-V G "line" 0 22 "int8" `565 
-F G "isr_timer1" 0 25 "void()" `566 
-F G "serial_isr" 0 32 "void()" `567 
-F G "MAIN" 0 40 "int8()" `568 
+F G "MAIN" 0 17 "int8()" `563 
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0
