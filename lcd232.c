@@ -14,8 +14,11 @@
 
 #include "lcd_4b.c"
 
+#define max 40
+#define T1_ON T1_INTERNAL|T1_DIV_BY_1
+
 short write = 1;
-int buffer[80];
+int buffer[max];
 int line = 0;
 
 #INT_TIMER1
@@ -31,7 +34,7 @@ void serial_isr() {
 	buffer[line++] = getc();
 	buffer[line] = '\0';
 	set_timer1(0);
-	setup_timer_1(T1_INTERNAL | T1_DIV_BY_1);
+	setup_timer_1(T1_ON);
 }
 
 int main(void) {
@@ -42,6 +45,7 @@ int main(void) {
 	delay_ms(500);
 
 	clear_interrupt(INT_TIMER1);
+	clear_interrupt(INT_RDA);
 	enable_interrupts(INT_RDA);
 	enable_interrupts(INT_TIMER1);
 	enable_interrupts(GLOBAL);
@@ -50,9 +54,9 @@ int main(void) {
 		if (write) {
 			write = 0;
 			printf(lcd, "%s", buffer);
-			for (line = 0; line < 32; line++) {
+			printf("%s", buffer);
+			for (line = 0; line < max; line++)
 				buffer[line] = '\0';
-			}
 			line = 0;
 		}
 	}

@@ -1,0 +1,16 @@
+[PROJECT]
+Target=lcd232.hex
+Processor_Text=PIC16F628A
+CCSVersion=5.008
+Compiler=PCM
+[Target Data]
+FileList=lcd232.c
+[Directories]
+Include=C:\PICC\devices\;C:\PICC\drivers\;D:\Projetos\LCD232\
+[lcd232.c]
+Type=4
+[mru-list]
+1=lcd232.c
+[Units]
+Count=1
+1=lcd232 (main)
