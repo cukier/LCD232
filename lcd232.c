@@ -25,7 +25,7 @@ int line = 0;
 void isr_timer1() {
 	clear_interrupt(INT_TIMER1);
 	setup_timer_1(T1_DISABLED);
-	write = 1;
+	write = TRUE;
 }
 
 #int_rda
@@ -39,10 +39,7 @@ void serial_isr() {
 
 int main(void) {
 
-	strcpy(buffer, "Done");
-	write = TRUE;
 	lcd_init();
-	delay_ms(500);
 
 	clear_interrupt(INT_TIMER1);
 	clear_interrupt(INT_RDA);
