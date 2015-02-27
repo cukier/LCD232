@@ -15,7 +15,7 @@ int cont;
 int main(void) {
 	delay_ms(1000);
 	printf("\fInicio");
-	printf("\nSegunda");
+	printf("\nSegunda\r");
 	while (TRUE) {
 		if (!input(PIN_A0)) {
 			delay_ms(50);
