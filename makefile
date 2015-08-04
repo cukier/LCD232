@@ -1,4 +1,4 @@
-CC=ccsc
+CC=wine ccsc
 PK2=pk2cmd
 
 MFLAGS=+FM +LN -T -A -M -Z +DF +Y=9 +STDOUT
@@ -20,4 +20,4 @@ burn:
 	$(PK2) $(PK2FLAGS) lcd232.hex
 
 clean:
-	rm *.cof *.err *.esym *.hex *.lst
+	rm *.ccspjt *.cof *.err *.esym *.hex *.lst *.xsym
