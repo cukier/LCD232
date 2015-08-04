@@ -1,7 +1,7 @@
-.ccspjt
-.cof
-.err
-.esym
-.hex
-.lst
-.xsym
+*.ccspjt
+*.cof
+*.err
+*.esym
+*.hex
+*.lst
+*.xsym
