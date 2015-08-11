@@ -10,7 +10,7 @@
 
 #fuses NOWDT,NOPUT,INTRC_IO,MCLR,NOBROWNOUT,NOLVP,NOCPD,NOPROTECT
 #use delay(clock=4MHz)
-#use rs232(baud=9600,xmit=pin_b2,rcv=pin_b1)
+#use rs232(baud=19200,xmit=pin_b2,rcv=pin_b1)
 
 #include "lcd_4b.c"
 

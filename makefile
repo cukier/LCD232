@@ -15,4 +15,4 @@ burn:
 	$(PK2) $(PK2FLAGS) lcd232.hex
 
 clean:
-	rm *.cof *.err *.esym *.hex *.lst
+	rm *.cof *.err *.esym *.hex *.lst *.ccspjt *.PWI *.xsym *.DBK
